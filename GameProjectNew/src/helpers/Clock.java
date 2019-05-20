@@ -1,6 +1,7 @@
 package helpers;
 
 import org.lwjgl.Sys;
+import static helpers.Clock.*;
 
 public class Clock {
 
@@ -16,10 +17,10 @@ public class Clock {
 		long currentTime = getTime();
 		int delta = (int) (currentTime - lastFrame);
 		lastFrame = getTime();
-		if (delta * 0.01f > 0.5f) {
-			return 0.5f;
-		}
-		return delta * 0.01f;
+		if (delta * 0.001f > 0.05f) 
+			return 0.05f;
+		
+		return delta * 0.001f;
 	}
 	
 	public static float delta() {
@@ -43,7 +44,7 @@ public class Clock {
 		totalTime += d;
 	}
 	
-	public static void ChangeMultiplier(int change) {
+	public static void ChangeMultiplier(float change) {
 		if (multiplier + change < -1 && multiplier + change > 7) {
 			
 		} else {

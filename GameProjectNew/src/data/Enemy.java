@@ -13,11 +13,12 @@ public class Enemy {
 	private Tile startTile;
 	private boolean first = true, alive = true;
 	private TileGrid grid;
+	public static int points;
 	
 	private ArrayList<Checkpoint> checkpoints;
 	private int[] directions;
 	
-	public Enemy(Texture texture,Tile startTile,TileGrid grid, int width, int height, float speed) {
+	public Enemy(Texture texture,Tile startTile,TileGrid grid, int width, int height, float speed, int health) {
 		this.texture=texture;
 		this.startTile = startTile;
 		this.x=startTile.getX();
@@ -26,6 +27,7 @@ public class Enemy {
 		this.height=height;
 		this.speed=speed;
 		this.grid=grid;
+		this.health = health;
 		
 		this.checkpoints = new ArrayList<Checkpoint>();
 		this.directions = new int[2];
@@ -153,11 +155,18 @@ public class Enemy {
 		} else {
 			dir[0] = 2;
 			dir[1] = 2;
-			System.out.println("NO DIRECTION FOUND");
 		}
 		
 		
 		return dir;
+	}
+	
+	public void damage(int amount) {
+		health -= amount;
+		if(health <= 0) {
+			Die();
+			points++;
+		}
 	}
 	private void Die() {
 		alive = false;
